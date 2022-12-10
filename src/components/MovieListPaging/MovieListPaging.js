@@ -3,9 +3,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons'
 import { Previous, Next, Paging, PageNumber } from './MovieListPagingStyle'
 
-const MovieListPaging = ({ setCurrentPageNumber, currentPageNumber }) => {
+const MovieListPaging = ({
+  setCurrentPageNumber,
+  currentPageNumber,
+  pageList,
+  setPageList
+}) => {
   //let pageList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-  const [pageList, setPageList] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
 
   const movePageLeftRight = (action) => {
     if (action === 'prev' && currentPageNumber > 1) {

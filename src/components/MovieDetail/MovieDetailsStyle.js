@@ -56,9 +56,6 @@ const PosterContainer = styled.div`
     border-radius: 10px;
     box-shadow: rgb(0 0 0 / 27%) 10px 10px 33px -4px;
 
-    @media screen and (max-width: 1024px) {
-      /*  */
-    }
     @media screen and (max-width: 768px) {
       width: 80%;
     }
@@ -67,20 +64,17 @@ const PosterContainer = styled.div`
       width: 80%;
     }
     @media screen and (max-width: 375px) {
-      /* max-height: 450px; */
       width: 80%;
     }
   }
 `
 
 const TextContainer = styled.div`
-  /* box-shadow: rgb(0 0 0 / 27%) 10px 10px 33px -4px; */
   width: 65%;
   padding: 0 2rem;
 
   div {
     padding: 1rem;
-    /* margin-bottom: 1rem; */
   }
 
   @media screen and (max-width: 768px) {
@@ -131,7 +125,6 @@ const Genre = styled.div`
     padding: 3px 3px 3px 0;
     margin-right: 0.5rem;
     border-radius: 5px;
-    /* box-shadow: rgb(0 0 0 / 27%) 10px 10px 33px -4px; */
   }
 `
 

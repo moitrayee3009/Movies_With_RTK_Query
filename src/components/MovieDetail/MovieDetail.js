@@ -15,80 +15,73 @@ import {
 } from './MovieDetailsStyle'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar } from '@fortawesome/free-solid-svg-icons'
+import { useGetMovieDetailsQuery } from '../../api/apiSlice'
+import { Spinner } from '../Spinner'
+import Translate from '../Translation/Translate'
 
 const MovieDetail = () => {
   const API_KEY = process.env.REACT_APP_API_KEY
-  const baseUrl = 'https://api.themoviedb.org/3/movie/'
   const params = useParams()
+  const movieId = params.movieId
 
-  const [movieData, setMovieData] = useState([])
-  const [error, setError] = useState({
-    message: '',
-    success: false
+  const [language, setLanguage] = useState('en-US')
+
+  const { isLoading, data, isError, error } = useGetMovieDetailsQuery({
+    movieId,
+    API_KEY,
+    language
   })
 
-  useEffect(() => {
-    getMovieData()
-  }, [])
+  if (isLoading)
+    return (
+      <div>
+        <Spinner />
+      </div>
+    )
 
-  const getMovieData = async () => {
-    setError({
-      message: '',
-      success: false
-    })
-    axios
-      .get(`${baseUrl}${params.movieId}?api_key=${API_KEY}&&language=en-US`)
-      .then((response) => {
-        setMovieData(response.data)
-        setError({
-          message: 'Movie data has been loaded successfully',
-          success: true
-        })
-      })
-      .catch((err) => {
-        setError({
-          message: err.err,
-          success: false
-        })
-      })
+  if (isError) {
+    return <h3>{error.message}</h3>
   }
 
   return (
-    <DetailsContainer>
-      <PosterContainer>
-        <img
-          src={`https://www.themoviedb.org/t/p/w300${
-            movieData ? movieData.poster_path : ''
-          }`}
-          alt='poster '
-        />
-      </PosterContainer>
-      <TextContainer>
-        <MovieTitle>{movieData ? movieData.title : ''}</MovieTitle>
-        <Genre>
-          {movieData.genres &&
-            movieData.genres.map((genre, i) => (
-              <span key={i}> {genre.name} </span>
-            ))}
-        </Genre>
-        <RContainer>
-          <Rating>
-            <FontAwesomeIcon icon={faStar} />
-            {movieData ? movieData.vote_average : ''}
-            <span>(&nbsp;{movieData ? movieData.vote_count : ''}&nbsp;)</span>
-          </Rating>
-          <RDate>
-            <span>Release Date: </span>
-            {movieData ? movieData.release_date : ''}
-          </RDate>
-        </RContainer>
-        <RTime>
-          <span>Duration:</span> {movieData ? movieData.runtime : ''} min
-        </RTime>
+    <>
+      <Translate setLanguage={setLanguage} language={language}></Translate>
+      <DetailsContainer>
+        <PosterContainer>
+          <img
+            src={`https://www.themoviedb.org/t/p/w300${
+              data ? data.poster_path : ''
+            }`}
+            alt='poster '
+          />
+        </PosterContainer>
+        <TextContainer>
+          <MovieTitle>{data ? data.title : ''}</MovieTitle>
+          <Genre>
+            {data.genres &&
+              data.genres.map((genre, i) => (
+                <span key={i}> {genre.name} </span>
+              ))}
+          </Genre>
+          <RContainer>
+            <Rating>
+              <FontAwesomeIcon icon={faStar} />
+              {data ? data.vote_average : ''}
+              <span>(&nbsp;{data ? data.vote_count : ''}&nbsp;)</span>
+            </Rating>
+            <RDate>
+              <span>Release Date: </span>
+              {data ? data.release_date : ''}
+            </RDate>
+          </RContainer>
+          <RTime>
+            <span>Duration:</span> {data ? data.runtime : ''} min
+          </RTime>
 
-        <Description>{movieData ? movieData.overview : ''}</Description>
-      </TextContainer>
-    </DetailsContainer>
+          <Description>{data ? data.overview : ''}</Description>
+        </TextContainer>
+      </DetailsContainer>
+    </>
   )
 }
 

@@ -1,7 +1,7 @@
 import React from 'react'
-import { Languages, Language } from './FilterByLanguageStyle'
+import { Languages, Language } from './TranslateStyle'
 
-const FilterByLanguage = ({ setLanguage }) => {
+const Translate = ({ setLanguage, language }) => {
   let languageList = [
     { name: 'English', value: 'en-US' },
     { name: 'Swedish', value: 'sv' },
@@ -13,7 +13,11 @@ const FilterByLanguage = ({ setLanguage }) => {
     <Languages>
       {languageList.map((lan) => {
         return (
-          <Language key={lan.value} onClick={() => setLanguage(lan.value)}>
+          <Language
+            key={lan.value}
+            className={`${lan.value === language ? 'active' : ''}`}
+            onClick={() => setLanguage(lan.value)}
+          >
             {lan.name}
           </Language>
         )
@@ -22,4 +26,4 @@ const FilterByLanguage = ({ setLanguage }) => {
   )
 }
 
-export default FilterByLanguage
+export default Translate

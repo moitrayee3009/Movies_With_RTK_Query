@@ -22,7 +22,6 @@ const MovieList = (props) => {
     currentPageNumber
   })
 
-  console.log(data)
   if (isLoading)
     return (
       <div>

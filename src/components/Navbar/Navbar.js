@@ -8,11 +8,11 @@ const Navbar = () => {
       <Link to='/'>
         <h1>Movies</h1>
       </Link>
-      <div>
+      {/* <div>
         <Link to='/'>
           <h3>Home</h3>
         </Link>
-      </div>
+      </div> */}
     </NavBar>
   )
 }

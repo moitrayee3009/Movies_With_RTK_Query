@@ -1,9 +1,12 @@
-import { configureStore, createSlice, PayloadAction } from '@reduxjs/toolkit'
-// import { productsApi } from "./features/apiSlice";
+import { configureStore } from '@reduxjs/toolkit'
+import { moviesApi } from './api/apiSlice'
+
+const reducer = {
+  [moviesApi.reducerPath]: moviesApi.reducer
+}
+
 export const store = configureStore({
-  reducer: {
-    // [productsApi.reducerPath]: productsApi.reducer,
-  }
-  // middleware: (getDefaultMiddleware) =>
-  //   getDefaultMiddleware().concat(productsApi.middleware),
+  reducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(moviesApi.middleware)
 })

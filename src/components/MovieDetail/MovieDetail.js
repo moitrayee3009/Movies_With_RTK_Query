@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react'
-import axios from 'axios'
+import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import {
   DetailsContainer,
@@ -18,6 +17,7 @@ import { faStar } from '@fortawesome/free-solid-svg-icons'
 import { useGetMovieDetailsQuery } from '../../api/apiSlice'
 import { Spinner } from '../Spinner'
 import Translate from '../Translation/Translate'
+import SimilarMovies from '../SimilarMovies/SimilarMovies'
 
 const MovieDetail = () => {
   const API_KEY = process.env.REACT_APP_API_KEY
@@ -81,6 +81,7 @@ const MovieDetail = () => {
           <Description>{data ? data.overview : ''}</Description>
         </TextContainer>
       </DetailsContainer>
+      <SimilarMovies language={language} />
     </>
   )
 }
